@@ -17,6 +17,7 @@ export default function Addcard({ card, handleclose }) {
     });
     setchosen(newproduct);
   }
+  
 
   return (
     <>

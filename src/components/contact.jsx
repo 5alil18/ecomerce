@@ -5,7 +5,8 @@ import {
   Typography,
   Button,
   Autocomplete,
-  Divider,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import HomeIcon from "@mui/icons-material/Home";
@@ -16,7 +17,7 @@ import { useContext, useState } from "react";
 
 export default function Contact({ handledata }) {
   const isMobile = useMediaQuery("(max-width:700px)");
-  const { total, wilayas, chosen } = useContext(ProductContext);
+  const { total, wilayas, chosen, vider } = useContext(ProductContext);
 
   const [selected, setselected] = useState(null);
   const [mode, setMod] = useState("bureux");
@@ -42,7 +43,16 @@ export default function Contact({ handledata }) {
       prixLivraison: prixliv,
       total: somme,
     };
+
     handledata(info);
+  }
+  const [open, setOpen] = useState(false);
+
+  function message() {
+    setOpen(true);
+    setTimeout(() => {
+      setOpen(false);
+    }, 2000);
   }
 
   return (
@@ -60,12 +70,10 @@ export default function Contact({ handledata }) {
         my: isMobile ? 5 : 1,
       }}
     >
-      
-        <Typography variant={isMobile ? "h5" : "h4"} data-aos="zoom-in">
-          Passer la commande
-        </Typography>
+      <Typography variant={isMobile ? "h5" : "h4"} data-aos="zoom-in">
+        Passer la commande
+      </Typography>
 
-    
       <Box
         sx={{
           display: "flex",
@@ -84,6 +92,7 @@ export default function Contact({ handledata }) {
           id="outlined-basic"
           label="name"
           variant="outlined"
+          value={infomation.name}
           sx={{ width: !isMobile ? "50%" : "80%" }}
           onChange={(e) => {
             setinfomration({ ...infomation, name: e.target.value });
@@ -91,6 +100,7 @@ export default function Contact({ handledata }) {
         />
         <TextField
           data-aos="fade-left"
+          value={infomation.phonenumber}
           id="outlined-basic"
           label="phone number"
           variant="outlined"
@@ -113,6 +123,7 @@ export default function Contact({ handledata }) {
           <Autocomplete
             sx={{ width: !isMobile ? "50%" : "80%" }}
             disablePortal
+            value={selected}
             options={wilayas}
             onChange={(e, value) => setselected(value)}
             getOptionLabel={(option) => option.name}
@@ -131,9 +142,11 @@ export default function Contact({ handledata }) {
           <Typography data-aos="fade-right" color="textPrimary">
             mode de laivraison :
           </Typography>
-          <Box sx={{ display: "flex", gap: 3, alignItems: "center" }} data-aos="zoom-in">
+          <Box
+            sx={{ display: "flex", gap: 3, alignItems: "center" }}
+            data-aos="zoom-in"
+          >
             <Button
-              
               onClick={() => {
                 setMod("home");
                 setColor("home");
@@ -210,6 +223,14 @@ export default function Contact({ handledata }) {
           }}
           onClick={() => {
             handleinfomration();
+            message();
+            vider()
+            setinfomration({
+              name: "",
+              phonenumber: "",
+            });
+
+            setselected(null); //
           }}
           disabled={
             !selected ||
@@ -217,11 +238,18 @@ export default function Contact({ handledata }) {
             infomation.phonenumber.length !== 10 ||
             !chosen.length
           }
-          
         >
           <CheckIcon /> confirmé l'achat
         </Button>
       </Box>
+      <Snackbar
+        open={open}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert variant="filled" severity="success" sx={{ width: "100%" }}>
+          demande envoiyé!!
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }

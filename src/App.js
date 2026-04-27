@@ -152,11 +152,15 @@ function App() {
     });
   }, []);
 
+  function vider(){
+    setchosen([])
+  }
+
   return (
     <BrowserRouter>
       {" "}
       <ProductContext.Provider
-        value={{ product, chosen, setchosen, total, wilayas }}
+        value={{ product, chosen, setchosen, total, wilayas, vider }}
       >
         <Box
           sx={{
@@ -176,9 +180,6 @@ function App() {
               element={<Contact handledata={handledata} />}
             />
           </Routes>
-          {/* <Homepage></Homepage>
-          <Productlist chosenproduct={handlechosen}></Productlist>
-          <Contact handledata={handledata}></Contact> */}
         </Box>
       </ProductContext.Provider>
     </BrowserRouter>
