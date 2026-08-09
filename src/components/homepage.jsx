@@ -1,7 +1,6 @@
 import { Container, Typography, Button } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link } from "react-router-dom";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 export default function Homepage() {
   const isMobile = useMediaQuery("(max-width:700px)");
   return (
@@ -42,8 +41,8 @@ export default function Homepage() {
         component={Link}
         to={'/products'}
       >
-        Explorer la collection
-        <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
+       {" Explorer les collections 🚶‍➡️"}
+        
       </Button>
     </Container>
   );

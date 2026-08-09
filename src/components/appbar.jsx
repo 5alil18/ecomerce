@@ -136,7 +136,7 @@ export default function ResponsiveAppBar() {
           </Container>
         </AppBar>
       ) : (
-        <AppBar position="sticky" color="primary" data-aos="fade-up">
+        <AppBar position="sticky" color="transparent" data-aos="fade-up">
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Box

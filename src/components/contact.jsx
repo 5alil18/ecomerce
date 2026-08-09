@@ -13,7 +13,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ProductContext } from "../contexts/productContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 export default function Contact({ handledata }) {
   const isMobile = useMediaQuery("(max-width:700px)");
@@ -32,18 +32,26 @@ export default function Contact({ handledata }) {
     name: "",
     phonenumber: "",
   });
+ 
+  
+  
   function handleinfomration() {
-    const info = {
-      name: infomation.name,
-      phone: infomation.phonenumber,
-      wilaya: selected?.name,
-      nom_pro: chosen.map((p) => p.name),
-      quantity: chosen.map((p) => p.quantiti),
-      modeLivraison: mode,
-      prixLivraison: prixliv,
-      total: somme,
-    };
+const info = {
+  name: infomation.name,
+  phone: infomation.phonenumber,
+  wilaya: selected?.name,
 
+  products: chosen.map((p) => ({
+    name: p.name,
+    quantity: p.quantiti,
+    selectedSize: p.selectedSize,
+    prix: p.prix,
+  })),
+  
+  modeLivraison: mode,
+  prixLivraison: prixliv,
+  total: somme,
+};
     handledata(info);
   }
   const [open, setOpen] = useState(false);
@@ -100,14 +108,17 @@ export default function Contact({ handledata }) {
         />
         <TextField
           data-aos="fade-left"
-          value={infomation.phonenumber}
           id="outlined-basic"
           label="phone number"
           variant="outlined"
           sx={{ width: !isMobile ? "50%" : "80%" }}
+          value={infomation.phonenumber}
           onChange={(e) => {
             setinfomration({ ...infomation, phonenumber: e.target.value });
           }}
+           error={
+             infomation.phonenumber.length !== 10 
+            }
         />
         <Box
           sx={{
@@ -224,7 +235,7 @@ export default function Contact({ handledata }) {
           onClick={() => {
             handleinfomration();
             message();
-            vider()
+            vider();
             setinfomration({
               name: "",
               phonenumber: "",
@@ -241,6 +252,7 @@ export default function Contact({ handledata }) {
         >
           <CheckIcon /> confirmé l'achat
         </Button>
+        
       </Box>
       <Snackbar
         open={open}

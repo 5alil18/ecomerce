@@ -12,6 +12,7 @@ import PRODUIT2 from "./imgs/PRODUIT2.jpg";
 import PRODUIT3 from "./imgs/PRODUIT3.jpg";
 import { useState, useEffect } from "react";
 import Contact from "./components/contact";
+import ProductDetails from "./components/ProductDetails";
 const wilayas = [
   { id: 1, name: "Adrar", domicile: 1600, bureau: 800 },
   { id: 2, name: "Chlef", domicile: 900, bureau: 450 },
@@ -72,6 +73,7 @@ const product = [
     da: "da",
     imag: PRODUIT,
     name: "Couleur Classique",
+    size: ["s","m","l","xl"]
   },
   {
     id: 1,
@@ -81,6 +83,7 @@ const product = [
     da: "da",
     imag: PRODUIT2,
     name: "Couleur Premium",
+    size: ["s","m","l","xl"]
   },
   {
     id: 2,
@@ -90,51 +93,26 @@ const product = [
     da: "da",
     imag: PRODUIT3,
     name: "Couleur Exclusive",
+    size: ["s","m","l","xl"]
   },
-  {
-    id: 3,
-    details: "est la meilleur couleur demandé qui satisfait les client",
-    quantiti: 1,
-    prix: 5000,
-    da: "da",
-    imag: PRODUIT3,
-    name: "Couleur Exclusive",
-  },
-  {
-    id: 4,
-    details: "est la meilleur couleur demandé qui satisfait les client",
-    quantiti: 1,
-    prix: 5000,
-    da: "da",
-    imag: PRODUIT3,
-    name: "Couleur Exclusive",
-  },
-  {
-    id: 5,
-    details: "est la meilleur couleur demandé qui satisfait les client",
-    quantiti: 1,
-    prix: 5000,
-    da: "da",
-    imag: PRODUIT3,
-    name: "Couleur Exclusive",
-  },
+  
+
+
 ];
 
 function App() {
   const [chosen, setchosen] = useState([]);
   function handlechosen(e) {
-    const exist = chosen.find((item) => item.id === e.id);
-
+    const exist = chosen.find((item) => item.id === e.id && item.selectedSize === e.selectedSize);
     if (!exist) {
       setchosen((prev) => [...prev, e]);
     } else {
       const updatechosen = chosen.map((el) => {
-        return el.id === e.id ? { ...el, quantiti: el.quantiti + 1 } : el;
+        return el.id === e.id && el.selectedSize === e.selectedSize ? { ...el, quantiti: el.quantiti + 1 } : el;
       });
       setchosen(updatechosen);
     }
   }
-  console.log(chosen);
   const total = chosen?.reduce(
     (acc, item) => acc + item.prix * item.quantiti,
     0,
@@ -152,13 +130,14 @@ function App() {
     });
   }, []);
 
-  function vider(){
-    setchosen([])
+  function vider() {
+    setchosen([]);
   }
+
+  ///////////////////////////////:connecter avec le backend////////////////////////////////////////
 
   return (
     <BrowserRouter>
-      {" "}
       <ProductContext.Provider
         value={{ product, chosen, setchosen, total, wilayas, vider }}
       >
@@ -173,8 +152,9 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route
               path="/products"
-              element={<Productlist chosenproduct={handlechosen} />}
+              element={<Productlist  />}
             />
+            <Route path="/product/:id" element={<ProductDetails  chosenproduct={handlechosen} />} />
             <Route
               path="/contact"
               element={<Contact handledata={handledata} />}

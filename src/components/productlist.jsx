@@ -7,27 +7,25 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Snackbar from "@mui/material/Snackbar";
-import { useState } from "react";
-import { Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Productlist({ chosenproduct }) {
   const isMobile = useMediaQuery("(max-width:700px)");
 
-  function handleproduct(e) {
-    chosenproduct(e);
-  }
+  // function handleproduct(e) {
+  //   chosenproduct(e);
+  // }
   const { product } = useContext(ProductContext);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
-    setOpen(true);
-    setTimeout(() => {
-      setOpen(false);
-    }, 1500);
-  };
+  // const handleClick = () => {
+  //   setOpen(true);
+  //   setTimeout(() => {
+  //     setOpen(false);
+  //   }, 1500);
+  // };
+  const navigate = useNavigate()
   return (
     <Box
       sx={{
@@ -35,14 +33,13 @@ export default function Productlist({ chosenproduct }) {
         flexDirection: "column",
         justifyContent:'center',
         gap: 10,
-        minHeight: "100vh",
+        minHeight:"85vh",
         py:5
       }}
     >
       <Typography
         variant={isMobile ? "h4" : "h3"}
-        color="primary"
-        sx={{ textAlign: "center", py:isMobile?5:2 }}
+        sx={{ textAlign: "center", py:isMobile?5:2 , color:"white"}}
         data-aos="zoom-in-down"
 
       >
@@ -71,6 +68,11 @@ export default function Productlist({ chosenproduct }) {
                   boxShadow: "0px 0px 10px 10px  rgba(139, 92, 246, 0.8)",
                 },
               }}
+              onClick ={
+                ()=>{
+                  navigate(`/product/${e.id}`)
+                }
+              }
             >
               <CardMedia
                 sx={{ height: 300, objectFit: "contain", width: "100%" }}
@@ -100,23 +102,17 @@ export default function Productlist({ chosenproduct }) {
                   variant="contained"
                   sx={{ m: "auto", gap: 2 }}
                   onClick={() => {
-                    handleproduct(e);
-                    handleClick();
+                     navigate(`/product/${e.id}`)
                   }}
                 >
-                  add to card
-                  <AddShoppingCartIcon></AddShoppingCartIcon>
+                  details
                 </Button>
               </CardActions>
             </Card>
           );
         })}
         {/* //////////////////////////////////snackbar ///////////////////////////////////*/}
-        <Snackbar
-          open={open}
-          autoHideDuration={2000}
-          message="le produit est ajouté dans la pannié"
-        />
+       
       </Box>
     </Box>
   );

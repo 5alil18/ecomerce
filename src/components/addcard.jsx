@@ -11,9 +11,9 @@ export default function Addcard({ card, handleclose }) {
   /////////////////////function total//////////////////////
  
   ////////////////////////function delete////////////////////
-  function delet(index) {
+  function delet(index, size) {
     const newproduct = chosen.filter((item) => {
-      return item.id !== index;
+      return item.id !== index || item.selectedSize !== size;
     });
     setchosen(newproduct);
   }
@@ -74,7 +74,7 @@ export default function Addcard({ card, handleclose }) {
             {chosen.map((e) => {
               return (
                 <Box
-                  key={e.id}
+                  key={`${e.id}-${e.selectedSize}`}
                   sx={{
                     p: 1,
                     display: "flex",
@@ -89,6 +89,8 @@ export default function Addcard({ card, handleclose }) {
                     style={{ height: "80px", width: "80px", borderRadius: 2 }}
                   />
                   <Typography variant="h6">{e.details}</Typography>
+                  <Typography variant="h6">size : {e.selectedSize}</Typography>
+
                   <Box
                     sx={{
                       display: "flex",
@@ -102,7 +104,7 @@ export default function Addcard({ card, handleclose }) {
                       sx={{ bgcolor: "primary.main", color: "white" }}
                       onClick={() => {
                         const update = chosen.map((el) => {
-                          return el.id === e.id
+                          return el.id === e.id && el.selectedSize === e.selectedSize
                             ? { ...el, quantiti: el.quantiti + 1 }
                             : el;
                         });
@@ -124,7 +126,7 @@ export default function Addcard({ card, handleclose }) {
                       color="error"
                       sx={{ scale: 1.1, cursor: "pointer" }}
                       onClick={() => {
-                        delet(e.id);
+                        delet(e.id , e.selectedSize);
                       }}
                     ></DeleteIcon>
                   </Box>
