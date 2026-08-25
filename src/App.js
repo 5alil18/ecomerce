@@ -73,6 +73,7 @@ const product = [
     da: "da",
     imag: PRODUIT,
     name: "Couleur Classique",
+    category: "Classique",
     size: ["s","m","l","xl"]
   },
   {
@@ -83,6 +84,7 @@ const product = [
     da: "da",
     imag: PRODUIT2,
     name: "Couleur Premium",
+    category: "Premium",
     size: ["s","m","l","xl"]
   },
   {
@@ -93,6 +95,7 @@ const product = [
     da: "da",
     imag: PRODUIT3,
     name: "Couleur Exclusive",
+    category: "Exclusive",
     size: ["s","m","l","xl"]
   },
   

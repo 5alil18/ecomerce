@@ -13,7 +13,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ProductContext } from "../contexts/productContext";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 export default function Contact({ handledata }) {
   const isMobile = useMediaQuery("(max-width:700px)");
@@ -40,14 +40,12 @@ const info = {
   name: infomation.name,
   phone: infomation.phonenumber,
   wilaya: selected?.name,
-
   products: chosen.map((p) => ({
     name: p.name,
     quantity: p.quantiti,
     selectedSize: p.selectedSize,
     prix: p.prix,
   })),
-  
   modeLivraison: mode,
   prixLivraison: prixliv,
   total: somme,

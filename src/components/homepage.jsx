@@ -1,6 +1,5 @@
-import { Container, Typography, Button } from "@mui/material";
+import { Container, Typography} from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Link } from "react-router-dom";
 export default function Homepage() {
   const isMobile = useMediaQuery("(max-width:700px)");
   return (
@@ -26,24 +25,7 @@ export default function Homepage() {
       <Typography variant={isMobile ? "body2" : "h6"} data-aos="fade-left">
         Découvrez nos produits premium avec une palette
       </Typography>
-      <Button
-        data-aos="fade-right"
-        variant="contained"
-        color="primary"
-        sx={{
-          display: "flex",
-          gap: 1,
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          p: 2,
-          borderRadius: 22,
-        }}
-        component={Link}
-        to={'/products'}
-      >
-       {" Explorer les collections 🚶‍➡️"}
-        
-      </Button>
+      
     </Container>
   );
 }
