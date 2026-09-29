@@ -37,7 +37,17 @@ export default function ResponsiveAppBar() {
   return (
     <>
       {!isMobile ? (
-        <AppBar position="sticky" color="transparent" data-aos="fade-down">
+        <AppBar
+          position="sticky"
+          color="transparent"
+          data-aos="fade-down"
+          sx={{
+            backgroundColor: "rgba(250, 248, 245, 0.92)",
+            borderBottom: "1px solid rgba(89, 43, 49, 0.1)",
+            boxShadow: "none",
+            backdropFilter: "blur(14px)",
+          }}
+        >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Box
@@ -56,11 +66,18 @@ export default function ResponsiveAppBar() {
                     sx={{
                       height: "40px",
                       width: "40px",
-                      border: "0.5px purple solid ",
-                      scale: 1.1,
+                      border: "1px solid #d7c5bb",
                     }}
                   />
-                  <Typography sx={{ color: "purple" }} variant="h6">
+                  <Typography
+                    sx={{
+                      color: "#70443f",
+                      fontFamily: 'Georgia, "Times New Roman", serif',
+                      fontWeight: 600,
+                      letterSpacing: "0.16em",
+                    }}
+                    variant="h6"
+                  >
                     EARA
                   </Typography>
                 </Box>
@@ -85,13 +102,18 @@ export default function ResponsiveAppBar() {
                         variant="h6"
                         sx={{
                           borderBottom:
-                            underline === e ? "3px solid blue" : "none",
+                            underline === e ? "2px solid #70443f" : "2px solid transparent",
                           textTransform: "capitalize",
                           transition: "0.5s all linear",
                           cursor: "pointer",
-                          color: underline === e ? "primary.main" : "white",
-                          p: 2,
+                          color: underline === e ? "#70443f" : "#766a65",
+                          px: 1.5,
+                          py: 1.25,
                           textDecoration: "none",
+                          fontWeight: underline === e ? 600 : 400,
+                          "&:hover": {
+                            color: "#70443f",
+                          },
                         }}
                       >
                         {e}
@@ -106,15 +128,17 @@ export default function ResponsiveAppBar() {
                   sx={{
                     textTransform: "capitalize",
                     cursor: "pointer",
-                    border: "1px solid primary",
+                    position: "relative",
+                    border: "1px solid #e3d8d1",
                     borderRadius: "50%",
                     height: "50px",
                     width: "50px",
                     textAlign: "center",
-                    bgcolor: "rgb(255,255,255,0.2)",
+                    bgcolor: "#fffdfa",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    color: "#70443f",
                   }}
                 >
                   <ShoppingCartIcon
@@ -124,9 +148,20 @@ export default function ResponsiveAppBar() {
                     }}
                   />
                   <Typography
-                    variant="h6"
-                    color="error"
-                    sx={{ position: "absolute", top: 0.2, right: 0.5 }}
+                    variant="caption"
+                    sx={{
+                      position: "absolute",
+                      top: -4,
+                      right: -5,
+                      display: "grid",
+                      width: 20,
+                      height: 20,
+                      placeItems: "center",
+                      borderRadius: "50%",
+                      backgroundColor: "#70443f",
+                      color: "#fff",
+                      fontWeight: 700,
+                    }}
                   >
                     {chosen.length}
                   </Typography>
@@ -136,7 +171,17 @@ export default function ResponsiveAppBar() {
           </Container>
         </AppBar>
       ) : (
-        <AppBar position="sticky" color="transparent" data-aos="fade-up">
+        <AppBar
+          position="sticky"
+          color="transparent"
+          data-aos="fade-up"
+          sx={{
+            backgroundColor: "rgba(250, 248, 245, 0.94)",
+            borderBottom: "1px solid rgba(89, 43, 49, 0.1)",
+            boxShadow: "none",
+            backdropFilter: "blur(14px)",
+          }}
+        >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Box
@@ -149,8 +194,20 @@ export default function ResponsiveAppBar() {
                 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <Avatar alt="Eara" src={eara} />
-                  <Typography variant="h6" color="white">
+                  <Avatar
+                    alt="Eara"
+                    src={eara}
+                    sx={{ border: "1px solid #d7c5bb" }}
+                  />
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#70443f",
+                      fontFamily: 'Georgia, "Times New Roman", serif',
+                      fontWeight: 600,
+                      letterSpacing: "0.16em",
+                    }}
+                  >
                     EARA
                   </Typography>
                 </Box>
@@ -158,7 +215,7 @@ export default function ResponsiveAppBar() {
                   <MenuIcon
                     onClick={() => setDrawerOpen(true)}
                     sx={{
-                      color: "primary.white",
+                      color: "#70443f",
                       height: "40px",
                       width: "40px",
                       zIndex: 999999,
@@ -176,6 +233,13 @@ export default function ResponsiveAppBar() {
       <Drawer
         anchor={"top"}
         open={drawerOpen}
+        sx={{
+          "& .MuiDrawer-paper": {
+            minHeight: 300,
+            justifyContent: "center",
+            backgroundColor: "#fbf9f6",
+          },
+        }}
         onClose={() => {
           setDrawerOpen(false);
         }}
@@ -189,7 +253,7 @@ export default function ResponsiveAppBar() {
             alignItems: "center",
             justifyContent: "space-around",
             gap: 5,
-            bgcolor: "transparent",
+            bgcolor: "#fbf9f6",
           }}
         >
           <CloseIcon
@@ -199,7 +263,7 @@ export default function ResponsiveAppBar() {
             sx={{
               height: "40px",
               width: "40px",
-              color: "primary.main",
+              color: "#70443f",
               position: "absolute",
               right: "10px",
               top: "5px",
@@ -223,7 +287,7 @@ export default function ResponsiveAppBar() {
                   padding: 1,
                   borderRadius: 1,
                   textAlign: "center",
-                  color: "primary.main",
+                  color: "#70443f",
                   "&:hover": {
                     scale: 1.1,
                   },
@@ -245,7 +309,7 @@ export default function ResponsiveAppBar() {
               sx={{
                 height: "40px",
                 width: "40px",
-                color: "primary.main",
+                color: "#70443f",
                 cursor: "pointer",
                 padding: 1,
                 borderRadius: 1,

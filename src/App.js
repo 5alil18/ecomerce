@@ -13,6 +13,37 @@ import PRODUIT3 from "./imgs/PRODUIT3.jpg";
 import { useState, useEffect } from "react";
 import Contact from "./components/contact";
 import ProductDetails from "./components/ProductDetails";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#70443f",
+      dark: "#54322f",
+      light: "#9b7169",
+    },
+    secondary: {
+      main: "#b38a70",
+    },
+    background: {
+      default: "#f4f0eb",
+      paper: "#fffdfa",
+    },
+    text: {
+      primary: "#302725",
+      secondary: "#766a65",
+    },
+  },
+  shape: {
+    borderRadius: 4,
+  },
+  typography: {
+    fontFamily: '"Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    button: {
+      textTransform: "none",
+    },
+  },
+});
 const wilayas = [
   { id: 1, name: "Adrar", domicile: 1600, bureau: 800 },
   { id: 2, name: "Chlef", domicile: 900, bureau: 450 },
@@ -132,7 +163,7 @@ function App() {
       easing: "linear  ",
     });
   }, []);
-
+///////////////////////////vider la carte/////////////////////
   function vider() {
     setchosen([]);
   }
@@ -140,32 +171,35 @@ function App() {
   ///////////////////////////////:connecter avec le backend////////////////////////////////////////
 
   return (
-    <BrowserRouter>
-      <ProductContext.Provider
-        value={{ product, chosen, setchosen, total, wilayas, vider }}
-      >
-        <Box
-          sx={{
-            backgroundImage:
-              "linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(139, 92, 246, 0.8) 25%, rgba(236, 72, 153, 0.7) 50%, rgba(245, 158, 11, 0.6) 75%, rgba(16, 185, 129, 0.5) 100%)",
-          }}
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <ProductContext.Provider
+          value={{ product, chosen, setchosen, total, wilayas, vider }}
         >
-          <ResponsiveAppBar />
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route
-              path="/products"
-              element={<Productlist  />}
-            />
-            <Route path="/product/:id" element={<ProductDetails  chosenproduct={handlechosen} />} />
-            <Route
-              path="/contact"
-              element={<Contact handledata={handledata} />}
-            />
-          </Routes>
-        </Box>
-      </ProductContext.Provider>
-    </BrowserRouter>
+          <Box
+            sx={{
+              minHeight: "100vh",
+              backgroundColor: "#f4f0eb",
+              color: "#302725",
+            }}
+          >
+            <ResponsiveAppBar />
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/products" element={<Productlist />} />
+              <Route
+                path="/product/:id"
+                element={<ProductDetails chosenproduct={handlechosen} />}
+              />
+              <Route
+                path="/contact"
+                element={<Contact handledata={handledata} />}
+              />
+            </Routes>
+          </Box>
+        </ProductContext.Provider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

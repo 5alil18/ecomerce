@@ -1,11 +1,5 @@
 body {
-    background-image: url(../src/imgs/eara.JPG);
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    background-position: center;
-    z-index: 99999999;
-
-
+  background:
+    radial-gradient(ellipse at top left, rgba(222, 206, 191, 0.25), transparent 35%),
+    #f4f0eb;
 }
